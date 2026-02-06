@@ -32,14 +32,14 @@ routerMode: hash
       <img src="/RyanJoy头像.jpg" class="w-12 h-12 rounded-full object-cover border-2 border-primary" />
       <div class="text-left">
         <div class="text-xs text-gray-400">汇报人</div>
-        <div class="font-bold text-base">任俊业 RyanJoy</div>
+        <div class="font-bold text-base">RyanJoy</div>
       </div>
     </div>
     
   <div class="flex items-center gap-4">
     <div class="text-left">
       <div class="text-xs text-gray-400">成员</div>
-      <div class="font-bold text-base">孙懿枫</div>
+      <div class="font-bold text-base">XXX</div>
     </div>
   </div>
   </div>
@@ -91,7 +91,7 @@ glowSeed: 12
     <div class="absolute left-4 top-1.5 w-4 h-4 rounded-full bg-purple-500 border-4 border-gray-900 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></div>
     <div class="font-mono text-purple-400 text-sm mb-1">2025-11-05</div>
     <div class="text-gray-200">
-      这天，在明钰涛同学那里听到了“症候式”：
+      这天，在 MYT 同学那里听到了“症候式”：
       <div v-click="4" class="mt-2 p-3 bg-purple-500/10 border-l-4 border-purple-500 text-sm italic text-gray-300">
         《基于个人拍摄照片的症侯式阅读》
       </div>
