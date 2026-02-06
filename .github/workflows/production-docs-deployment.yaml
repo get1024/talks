@@ -53,3 +53,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: talks-ryanjoy
           directory: dist
+          branch: main
+          wranglerVersion: '3'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
