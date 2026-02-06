@@ -5,10 +5,8 @@ css: unocss
 colorSchema: dark
 transition: fade-out
 title: '个人摄影作品的症候式阅读研究'
-info: 'A symptomatic reading study of individual photographic works:A
-  psychographic feature mapping architecture based on multimodal deep learning.'
-exportFilename: A symptomatic reading study of individual photographic works:A
-  psychographic feature mapping architecture based on multimodal deep learning.
+info: 'A symptomatic reading study of individual photographic works:A psychographic feature mapping architecture based on multimodal deep learning.'
+exportFilename: A symptomatic reading study of individual photographic works:A psychographic feature mapping architecture based on multimodal deep learning.
 lineNumbers: false
 drawings:
   persist: false
