@@ -242,56 +242,61 @@ const htmlContent = `
     .stats {
       color: var(--muted);
       font-size: 13px;
+      white-space: nowrap;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 640px) {
       .grid { grid-template-columns: 1fr; }
-      header { align-items: start; }
+      header { flex-direction: column; align-items: stretch; }
+      .controls { min-width: 0; }
+      .title h1 { font-size: 24px; }
     }
 
     .card {
-      display: grid;
-      grid-template-columns: 140px minmax(0, 1fr);
-      gap: 14px;
-      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 16px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
       text-decoration: none;
       color: inherit;
-      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+      overflow: hidden;
+      height: 100%;
     }
 
     .card:hover {
-      transform: translateY(-2px);
-      background: var(--card2);
-      border-color: rgba(255, 255, 255, 0.22);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border-color: rgba(255, 255, 255, 0.3);
+      z-index: 1;
     }
 
     @media (prefers-color-scheme: light) {
-      .card:hover { border-color: rgba(15, 23, 42, 0.22); }
+      .card:hover { 
+        border-color: rgba(15, 23, 42, 0.3); 
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+      }
     }
 
     .thumb {
-      width: 140px;
-      height: 90px;
-      border-radius: 10px;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(168,85,247,0.05));
+      border-bottom: 1px solid var(--border);
+      position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(59,130,246,0.22), rgba(168,85,247,0.18));
-      border: 1px solid var(--border);
-      display: grid;
-      place-items: center;
-      color: var(--muted);
-      font-size: 12px;
     }
 
     .thumb img {
@@ -299,57 +304,88 @@ const htmlContent = `
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 500ms ease;
+    }
+
+    .card:hover .thumb img {
+      transform: scale(1.03);
+    }
+
+    .thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
     .meta {
-      display: grid;
-      gap: 6px;
-      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 20px;
+      gap: 12px;
     }
 
     .meta h2 {
       margin: 0;
-      font-size: 16px;
-      line-height: 1.25;
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 600;
       letter-spacing: -0.01em;
-      white-space: nowrap;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .meta .desc {
       margin: 0;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
+      font-size: 14px;
+      line-height: 1.6;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      min-height: 2.9em;
+      flex: 1;
     }
 
     .meta .row {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
-      color: var(--muted);
-      font-size: 12px;
+      margin-top: 8px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    @media (prefers-color-scheme: light) {
+      .meta .row { border-top-color: rgba(0,0,0,0.06); }
     }
 
     .chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--muted);
       background: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
     }
 
     @media (prefers-color-scheme: light) {
-      .chip { background: rgba(15, 23, 42, 0.03); }
+      .chip { background: rgba(15, 23, 42, 0.04); }
     }
 
     a.inline {
@@ -392,7 +428,7 @@ const htmlContent = `
           const href = `/${deck.slug}/`;
           const coverHtml = deck.cover
             ? `<img src="/${deck.slug}/${deck.cover}" alt="" loading="lazy" />`
-            : `<span>no cover</span>`;
+            : `<div class="thumb-placeholder">No Cover</div>`;
 
           const titleEsc = String(deck.title).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
           const descEsc = String(deck.description).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
@@ -406,10 +442,10 @@ const htmlContent = `
               <div class="thumb">${coverHtml}</div>
               <div class="meta">
                 <h2 title="${titleEsc}">${titleEsc}</h2>
-                <p class="desc">${descEsc}</p>
+                <p class="desc">${descEsc || 'No description provided.'}</p>
                 <div class="row">
                   <span class="chip">${slugEsc}</span>
-                  ${updatedEsc ? `<span class="chip">updated ${updatedEsc}</span>` : ''}
+                  ${updatedEsc ? `<span class="chip">Updated ${updatedEsc}</span>` : ''}
                 </div>
               </div>
             </a>
