@@ -15,6 +15,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
 
     steps:
       - uses: actions/checkout@v4
@@ -47,12 +50,9 @@ jobs:
         run: pnpm run packages:build-base
 
       - name: Deploy
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: talks-ryanjoy
-          directory: dist
-          branch: main
-          wranglerVersion: '3'
+          command: pages deploy dist --project-name=talks-ryanjoy --branch=main
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
